@@ -17,6 +17,6 @@ public class gpwsElytraMod implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		LOGGER.info("Hello Fabric world!");
+		LOGGER.info("GPWS loading for Elytra");
 	}
 }
