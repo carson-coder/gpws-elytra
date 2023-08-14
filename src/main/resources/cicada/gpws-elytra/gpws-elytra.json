@@ -3,12 +3,20 @@
 
     "conversations": {
         "cicada:greetings": {
-        "lines": [
-            {
-                "order": 21,
-                "text": "Im also here. On the TERRAN"
+            "lines": [
+                {
+                    "order": 21,
+                    "text": "Im also here. On the TERRAN"
+                }
+            ]
+        },
+        "gpws:favsong": {
+            "lines": [
+                {
+                    "order": 21,
+                    "text": "My Favorite Song. PULL UP PULL UP. 2000, 1000, 500, 250, 100, 50, 40, 30, 20, RETARD, TERRAIN"
+                }
+            ]
             }
-        ]
-        }
     }
 }
