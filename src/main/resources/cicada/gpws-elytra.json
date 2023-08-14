@@ -1,0 +1,14 @@
+{
+    "mod_id": "gpws_elytra",
+
+    "conversations": {
+        "cicada:greetings": {
+        "lines": [
+            {
+            "order": 20,
+            "text": "So am I. PULL UP"
+            }
+        ]
+        }
+    }
+}

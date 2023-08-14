@@ -16,10 +16,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.carsoncoder.gpws.ExampleMod"
+			"com.carsoncoder.gpws.gpwsElytraMod"
 		],
 		"client": [
-			"com.carsoncoder.gpws.ExampleModClient"
+			"com.carsoncoder.gpws.gpwsElytraClient"
 		]
 	},
 	"mixins": [
