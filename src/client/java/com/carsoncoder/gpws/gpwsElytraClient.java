@@ -1,18 +1,28 @@
 package com.carsoncoder.gpws;
 
-import net.fabricmc.api.ClientModInitializer;
-import nl.enjarai.cicada.api.util.CicadaEntrypoint;
-import nl.enjarai.cicada.api.conversation.ConversationManager;
-import nl.enjarai.cicada.api.util.JsonSource;
-import nl.enjarai.cicada.api.util.ProperLogger;
+import org.joml.Matrix4f;
 import org.slf4j.Logger;
 
-public class gpwsElytraClient implements ClientModInitializer, CicadaEntrypoint  {
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.entity.Entity;
+import nl.enjarai.cicada.api.conversation.ConversationManager;
+import nl.enjarai.cicada.api.util.CicadaEntrypoint;
+import nl.enjarai.cicada.api.util.JsonSource;
+import nl.enjarai.cicada.api.util.ProperLogger;
+
+public class gpwsElytraClient implements ClientModInitializer, CicadaEntrypoint, HudRenderCallback  {
     public static final Logger LOGGER = ProperLogger.getLogger("gpws-elytra");
+	public static gpwsElytraClient instance;
+
+	private String gpwsState = "Loading";
 
 	@Override
 	public void onInitializeClient() {
-		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
+		instance = this;
+		HudRenderCallback.EVENT.register(new gpwsHud(this));
 	}
 
 	@Override
@@ -22,5 +32,34 @@ public class gpwsElytraClient implements ClientModInitializer, CicadaEntrypoint 
                         .or(JsonSource.fromResource("cicada/gpws-elytra/conversations.json")),
                 LOGGER::info
         );
+    }
+
+	@Override
+	public void onHudRender(DrawContext drawContext, float tickDelta) {
+		Matrix4f matrix = MinecraftClient.getInstance().gameRenderer.getBasicProjectionMatrix(MinecraftClient.getInstance().options.getFov().getValue());
+	}
+
+	public void tick()
+	{
+		LOGGER.debug("ticked");
+		gpwsState = "";
+	}
+
+	private String StateLogic() {
+		Entity cam = MinecraftClient.getInstance().getCameraEntity();
+		float Yaw = cam.getYaw();
+		LOGGER.info(String.valueOf(Yaw));
+		return "How tf you get a debug version of this game";
+	}
+
+	public String GetState() {
+		if (gpwsState == "") {
+			gpwsState = StateLogic()
+		}
+		return gpwsState;
+	}
+	public static boolean isFallFlying() {
+        var player = MinecraftClient.getInstance().player;
+        return player != null && player.isFallFlying();
     }
 }
