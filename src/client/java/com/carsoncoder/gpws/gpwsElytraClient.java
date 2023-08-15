@@ -46,10 +46,17 @@ public class gpwsElytraClient implements ClientModInitializer, CicadaEntrypoint,
 	}
 
 	private String StateLogic() {
+		int StallAngle = -70;
+
 		Entity cam = MinecraftClient.getInstance().getCameraEntity();
-		float Yaw = cam.getYaw();
-		LOGGER.info(String.valueOf(Yaw));
-		return "How tf you get a debug version of this game";
+		float Pitch = cam.getPitch();
+		LOGGER.info(String.valueOf(Pitch));
+
+		if (Pitch < StallAngle) {
+			return "Stall";
+		}
+
+		return "";
 	}
 
 	public String GetState() {
