@@ -54,7 +54,7 @@ public class gpwsElytraClient implements ClientModInitializer, CicadaEntrypoint,
 
 	public String GetState() {
 		if (gpwsState == "") {
-			gpwsState = StateLogic()
+			gpwsState = StateLogic();
 		}
 		return gpwsState;
 	}
