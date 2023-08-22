@@ -3,9 +3,9 @@
 	"id": "gpws-elytra",
 	"version": "${version}",
 	"name": "GPWS-elytra",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Adds GPWS Callouts to Minecraft",
 	"authors": [
-		"Me!"
+		"Carson Coder"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",

@@ -22,7 +22,8 @@ public class gpwsSounds {
     private static final Identifier PULL_UP_ID = new Identifier("gpws-elytra:pull-up");
     private static SoundEvent PULL_UP = SoundEvent.of(PULL_UP_ID);
 
-    private SOUNDS[] Sounds = {SOUNDS.Y2500, SOUNDS.Y500, SOUNDS.Y400, SOUNDS.Y300, SOUNDS.Y200, SOUNDS.Y100, SOUNDS.Y70, SOUNDS.Y60, SOUNDS.Y50, SOUNDS.Y40, SOUNDS.Y30, SOUNDS.Y20}; 
+    private SOUNDS[] Sounds = {SOUNDS.Y2500, SOUNDS.Y500, SOUNDS.Y400, SOUNDS.Y300, SOUNDS.Y200, SOUNDS.Y100, SOUNDS.Y70, SOUNDS.Y60, SOUNDS.Y50, SOUNDS.Y40, SOUNDS.Y30, SOUNDS.Y20};
+    public HashMap<String, SOUNDS> YSounds = new HashMap<String, SOUNDS>();
 
     private HashMap<SOUNDS, SoundEvent> SoundsDict = new HashMap<SOUNDS, SoundEvent>();
 
@@ -44,6 +45,8 @@ public class gpwsSounds {
             SoundEvent event = SoundEvent.of(id);
             SoundsDict.put(currentSound, event);
             Registry.register(Registries.SOUND_EVENT, id, event);
+
+            YSounds.put(currentSound.name().substring(1), currentSound);
         }
     }
 

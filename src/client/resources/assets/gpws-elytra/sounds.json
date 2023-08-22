@@ -68,5 +68,10 @@
         "sounds": [
             "gpws-elytra:20"
         ]
+    },
+    "pull-up": {
+        "sounds": [
+            "gpws-elytra:pull-up"
+        ]
     }
 }
