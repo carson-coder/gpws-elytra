@@ -1,6 +1,8 @@
 package com.carsoncoder.gpws;
 
 
+import java.util.HashMap;
+
 import org.slf4j.Logger;
 
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
@@ -22,10 +24,10 @@ public class gpwsHud implements HudRenderCallback  {
 
     TextRenderer renderer;
 
-    int repeatTime = 3;
+    int repeatTime = gpwsElytraClient.config.SoundDelay;
 
     String prevstate = "";   
-    float lastPlayedSoundTime = 0;
+    float lastPlayedSoundTime = 100;
 
     class Color {
         public int R;
@@ -42,6 +44,8 @@ public class gpwsHud implements HudRenderCallback  {
 
     private gpwsElytraClient client;
     private Color white = new Color(255, 255, 255);
+
+    private HashMap<Integer, gpwsSounds.SOUNDS> times;
 
     public gpwsHud(gpwsElytraClient c) {
         client = c;
@@ -86,9 +90,9 @@ public class gpwsHud implements HudRenderCallback  {
 
     private void PlaySound(SoundEvent sound) {
         MinecraftClient.getInstance().getSoundManager().play(new EntityTrackingSoundInstance(
-            gpwsElytraClient.RETARD,
-            SoundCategory.BLOCKS,
-            1f,
+            sound,
+            SoundCategory.VOICE,
+            gpwsElytraClient.config.Volume,
             1f,
             MinecraftClient.getInstance().player,
             Random.create().nextLong()));
@@ -103,6 +107,10 @@ public class gpwsHud implements HudRenderCallback  {
 		// );
     }
 
+    private void PlaySound(gpwsSounds.SOUNDS sound) {
+        PlaySound(gpwsElytraClient.SOUNDS_MANAGER.GetSound(sound));
+    }
+
 	@Override
 	public void onHudRender(DrawContext drawContext, float tickDelta) {
         if (!client.isFallFlying()) {
@@ -114,15 +122,20 @@ public class gpwsHud implements HudRenderCallback  {
             renderer = MinecraftClient.getInstance().textRenderer;
         }
 
-        String state = client.GetState();
+        String state = client.GetState(tickDelta);
 
-        if (state != prevstate) {
-            PlaySound(gpwsElytraClient.RETARD);
+        if (state == "Bank Angle" && lastPlayedSoundTime > repeatTime) {
+            PlaySound(gpwsSounds.SOUNDS.BANK_ANGLE);
+            lastPlayedSoundTime = 0;
+        } else if (state == "Pull Up" && lastPlayedSoundTime > repeatTime) {
+            PlaySound(gpwsSounds.SOUNDS.PULL_UP);
+            lastPlayedSoundTime = 0;
         }
+        // LOGGER.info(String.valueOf(lastPlayedSoundTime));
 
         // Render Bold Underlined Hello In the center of the screen
         Text gpwsText = newText(
-            client.GetState(),
+            client.GetState(tickDelta),
             false,
             false, 
             false, 
@@ -139,5 +152,6 @@ public class gpwsHud implements HudRenderCallback  {
         );
 
         prevstate = state;
+        lastPlayedSoundTime += tickDelta;
 	}
 }

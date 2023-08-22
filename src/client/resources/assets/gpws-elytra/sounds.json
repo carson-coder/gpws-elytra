@@ -6,67 +6,67 @@
     },
     "bank-angle": {
         "sounds": [
-            "gpws-elytra:retard"
+            "gpws-elytra:bank-angle"
         ]
     },
     "2500": {
         "sounds": [
-            "gpws-elytra:retard"
+            "gpws-elytra:2500"
         ]
     },
     "500": {
         "sounds": [
-            "gpws-elytra:retard"
+            "gpws-elytra:500"
         ]
     },
     "400": {
         "sounds": [
-            "gpws-elytra:retard"
+            "gpws-elytra:400"
         ]
     },
     "300": {
         "sounds": [
-            "gpws-elytra:retard"
+            "gpws-elytra:300"
         ]
     },
     "200": {
         "sounds": [
-            "gpws-elytra:retard"
+            "gpws-elytra:200"
         ]
     },
     "100": {
         "sounds": [
-            "gpws-elytra:retard"
+            "gpws-elytra:100"
         ]
     },
     "70": {
         "sounds": [
-            "gpws-elytra:retard"
+            "gpws-elytra:70"
         ]
     },
     "60": {
         "sounds": [
-            "gpws-elytra:retard"
+            "gpws-elytra:60"
         ]
     },
     "50": {
         "sounds": [
-            "gpws-elytra:retard"
+            "gpws-elytra:50"
         ]
     },
     "40": {
         "sounds": [
-            "gpws-elytra:retard"
+            "gpws-elytra:40"
         ]
     },
     "30": {
         "sounds": [
-            "gpws-elytra:retard"
+            "gpws-elytra:30"
         ]
     },
     "20": {
         "sounds": [
-            "gpws-elytra:retard"
+            "gpws-elytra:20"
         ]
     }
 }
