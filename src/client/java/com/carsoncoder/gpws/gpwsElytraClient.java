@@ -18,7 +18,7 @@ import nl.enjarai.cicada.api.util.JsonSource;
 import nl.enjarai.cicada.api.util.ProperLogger;
 
 public class gpwsElytraClient implements ClientModInitializer, CicadaEntrypoint  {
-	public static gpwsConfig config = new gpwsConfig();
+	public static gpwsConfig CONFIG = new gpwsConfig();
     public static final Logger LOGGER = ProperLogger.getLogger("gpws-elytra");
 	public static gpwsElytraClient instance;
 	public static final gpwsSounds SOUNDS_MANAGER = new gpwsSounds();
@@ -30,7 +30,7 @@ public class gpwsElytraClient implements ClientModInitializer, CicadaEntrypoint 
 		instance = this;
 		SOUNDS_MANAGER.init();
 		HudRenderCallback.EVENT.register(new gpwsHud(this));
-	}
+    }
 
 	@Override
     public void registerConversations(ConversationManager conversationManager) {
@@ -86,7 +86,7 @@ public class gpwsElytraClient implements ClientModInitializer, CicadaEntrypoint 
 	}
 
 	private String StateLogic(float delta) {
-		int StallAngle = config.BankAngleAngle;
+		int StallAngle = CONFIG.BankAngleAngle;
 
 		Entity cam = MinecraftClient.getInstance().getCameraEntity();
 		BlockPos pos = MinecraftClient.getInstance().player.getBlockPos();
@@ -97,7 +97,7 @@ public class gpwsElytraClient implements ClientModInitializer, CicadaEntrypoint 
 		double DownVel = MinecraftClient.getInstance().player.getVelocity().y;
 		float Pitch = cam.getPitch();
 
-		LOGGER.info(String.valueOf(heightmap.get(Math.max(Math.min(pos.getX() - chunk.getPos().getStartX(), 15), 0), Math.max(Math.min(pos.getX() - chunk.getPos().getStartZ(), 15), 0))));
+		// LOGGER.info(String.valueOf(heightmap.get(Math.max(Math.min(pos.getX() - chunk.getPos().getStartX(), 15), 0), Math.max(Math.min(pos.getX() - chunk.getPos().getStartZ(), 15), 0))));
 
 		if (Pitch < StallAngle) {
 			return "Bank Angle";

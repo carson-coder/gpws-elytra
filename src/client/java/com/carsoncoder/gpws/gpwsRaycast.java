@@ -41,7 +41,7 @@ public class gpwsRaycast {
             return null;
         }
     
-        double reachDistance = gpwsElytraClient.config.PullUpRange; //Change this to extend the reach
+        double reachDistance = gpwsElytraClient.CONFIG.PullUpRange; //Change this to extend the reach
         HitResult target = raycast(entity, reachDistance, tickDelta, false, direction);
         boolean tooFar = false;
         double extendedReach = reachDistance;

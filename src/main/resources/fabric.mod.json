@@ -20,7 +20,10 @@
 		],
 		"client": [
 			"com.carsoncoder.gpws.gpwsElytraClient"
-		]
+		],
+        "modmenu": [
+            "com.carsoncoder.gpws.gpwsModScreen"
+        ]
 	},
 	"mixins": [
 		"gpws-elytra.mixins.json",
