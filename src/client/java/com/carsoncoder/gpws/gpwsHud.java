@@ -24,7 +24,7 @@ public class gpwsHud implements HudRenderCallback  {
 
     TextRenderer renderer;
 
-    int repeatTime = gpwsElytraClient.config.SoundDelay;
+    int repeatTime = gpwsElytraClient.CONFIG.SoundDelay;
 
     String prevstate = "";   
     float lastPlayedSoundTime = 100;
@@ -88,28 +88,7 @@ public class gpwsHud implements HudRenderCallback  {
         stack.pop();
     }
 
-    private void PlaySound(SoundEvent sound) {
-        MinecraftClient.getInstance().getSoundManager().play(new EntityTrackingSoundInstance(
-            sound,
-            SoundCategory.VOICE,
-            gpwsElytraClient.config.Volume,
-            1f,
-            MinecraftClient.getInstance().player,
-            Random.create().nextLong()));
-        // if (MinecraftClient.getInstance().player == null) {return;}
-        //     MinecraftClient.getInstance().world.playSound(
-        //     MinecraftClient.getInstance().player, // Player - if non-null, will play sound for every nearby player *except* the specified player
-        //     MinecraftClient.getInstance().player.getBlockPos(), // The position of where the sound will come from
-        //     SoundEvents.BLOCK_FENCE_GATE_OPEN, // The sound that will play
-        //     SoundCategory.BLOCKS, // This determines which of the volume sliders affect this sound
-        //     1f, //Volume multiplier, 1 is normal, 0.5 is half volume, etc
-        //     1f // Pitch multiplier, 1 is normal, 0.5 is half pitch, etc
-		// );
-    }
-
-    private void PlaySound(gpwsSounds.SOUNDS sound) {
-        PlaySound(gpwsElytraClient.SOUNDS_MANAGER.GetSound(sound));
-    }
+    
 
 	@Override
 	public void onHudRender(DrawContext drawContext, float tickDelta) {
