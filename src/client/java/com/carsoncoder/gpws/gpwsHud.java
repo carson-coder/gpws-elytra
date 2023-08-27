@@ -104,13 +104,13 @@ public class gpwsHud implements HudRenderCallback  {
         String state = client.GetState(tickDelta);
 
         if (state == "Bank Angle" && lastPlayedSoundTime > repeatTime) {
-            PlaySound(gpwsSounds.SOUNDS.BANK_ANGLE);
+            gpwsElytraClient.SOUNDS_MANAGER.PlaySound(gpwsSounds.SOUNDS.BANK_ANGLE);
             lastPlayedSoundTime = 0;
         } else if (state == "Pull Up" && lastPlayedSoundTime > repeatTime + 20) {
-            PlaySound(gpwsSounds.SOUNDS.PULL_UP);
+            gpwsElytraClient.SOUNDS_MANAGER.PlaySound(gpwsSounds.SOUNDS.PULL_UP);
             lastPlayedSoundTime = 0;
         } else if (gpwsElytraClient.SOUNDS_MANAGER.YSounds.get(state) != null && lastPlayedSoundTime > 10) {
-            PlaySound(gpwsElytraClient.SOUNDS_MANAGER.YSounds.get(state));
+            gpwsElytraClient.SOUNDS_MANAGER.PlaySound(gpwsElytraClient.SOUNDS_MANAGER.YSounds.get(state));
             lastPlayedSoundTime = 0;
         }
         // LOGGER.info(String.valueOf(lastPlayedSoundTime));

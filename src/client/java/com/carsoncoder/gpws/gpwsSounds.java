@@ -6,6 +6,10 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.sound.EntityTrackingSoundInstance;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.sound.SoundCategory;
 
 public class gpwsSounds {
 
