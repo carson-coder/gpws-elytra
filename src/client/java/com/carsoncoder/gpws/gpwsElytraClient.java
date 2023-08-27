@@ -18,7 +18,7 @@ import nl.enjarai.cicada.api.util.JsonSource;
 import nl.enjarai.cicada.api.util.ProperLogger;
 
 public class gpwsElytraClient implements ClientModInitializer, CicadaEntrypoint  {
-	public static gpwsConfig CONFIG = new gpwsConfig();
+	public static gpwsConfig CONFIG = gpwsConfig.load();
     public static final Logger LOGGER = ProperLogger.getLogger("gpws-elytra");
 	public static gpwsElytraClient instance;
 	public static final gpwsSounds SOUNDS_MANAGER = new gpwsSounds();

@@ -42,7 +42,7 @@ public class gpwsSounds {
 
         for (int i=0; i<12; i++) {
             SOUNDS currentSound = Sounds[i];
-
+            
             gpwsElytraClient.LOGGER.info("Loading Sound: {}", currentSound.name());
 
             Identifier id = new Identifier("gpws-elytra:" + currentSound.name().substring(1));
@@ -58,7 +58,7 @@ public class gpwsSounds {
         MinecraftClient.getInstance().getSoundManager().play(new EntityTrackingSoundInstance(
             sound,
             SoundCategory.VOICE,
-            gpwsElytraClient.CONFIG.Volume,
+            gpwsElytraClient.CONFIG.Volume/100,
             1f,
             MinecraftClient.getInstance().player,
             Random.create().nextLong()));

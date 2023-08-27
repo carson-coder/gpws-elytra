@@ -1,3 +1,6 @@
+// Not used in the mod
+// Just a GUI Test
+
 package com.carsoncoder.gpws;
 
 import org.slf4j.Logger;
