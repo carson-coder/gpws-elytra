@@ -1,22 +1,16 @@
 package com.carsoncoder.gpws;
 
 
-import java.util.HashMap;
-
 import org.slf4j.Logger;
 
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.sound.EntityTrackingSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.math.random.Random;
 import nl.enjarai.cicada.api.util.ProperLogger;
 
 public class gpwsHud implements HudRenderCallback  {
@@ -24,7 +18,7 @@ public class gpwsHud implements HudRenderCallback  {
 
     TextRenderer renderer;
 
-    int repeatTime = gpwsElytraClient.CONFIG.SoundDelay;
+    int repeatTime = gpwsElytraClient.CONFIG.MinSoundDelay;
 
     String prevstate = "";   
     float lastPlayedSoundTime = 100;
@@ -45,7 +39,7 @@ public class gpwsHud implements HudRenderCallback  {
     private gpwsElytraClient client;
     private Color white = new Color(255, 255, 255);
 
-    private HashMap<Integer, gpwsSounds.SOUNDS> times;
+    private String lastState = "";
 
     public gpwsHud(gpwsElytraClient c) {
         client = c;
@@ -106,10 +100,10 @@ public class gpwsHud implements HudRenderCallback  {
         if (state == "Bank Angle" && lastPlayedSoundTime > repeatTime) {
             gpwsElytraClient.SOUNDS_MANAGER.PlaySound(gpwsSounds.SOUNDS.BANK_ANGLE);
             lastPlayedSoundTime = 0;
-        } else if (state == "Pull Up" && lastPlayedSoundTime > repeatTime + 20) {
+        } else if (state == "Pull Up" && lastPlayedSoundTime > ((state != prevstate)? repeatTime + 20: gpwsElytraClient.CONFIG.MinSoundDelay)) {
             gpwsElytraClient.SOUNDS_MANAGER.PlaySound(gpwsSounds.SOUNDS.PULL_UP);
             lastPlayedSoundTime = 0;
-        } else if (gpwsElytraClient.SOUNDS_MANAGER.YSounds.get(state) != null && lastPlayedSoundTime > 10) {
+        } else if (gpwsElytraClient.SOUNDS_MANAGER.YSounds.get(state) != null && state != prevstate) {
             gpwsElytraClient.SOUNDS_MANAGER.PlaySound(gpwsElytraClient.SOUNDS_MANAGER.YSounds.get(state));
             lastPlayedSoundTime = 0;
         }

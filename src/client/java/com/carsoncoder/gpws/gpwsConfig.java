@@ -29,8 +29,7 @@ public class gpwsConfig {
     int BankAngleAngle = -50;
     int Volume = 100;
     int SoundDelay = 30;
-
-    boolean test = false;
+    int MinSoundDelay = 10;
 
     public static final Path CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("carsoncoder-gpws.json");
     public static final Gson GSON = new GsonBuilder()
@@ -51,11 +50,35 @@ public class gpwsConfig {
                             .description(OptionDescription.createBuilder()
                                 .text(Text.literal("The volume of sounds"))
                                 .build())
-                            .binding(gpwsElytraClient.CONFIG.Volume, () -> {return gpwsElytraClient.CONFIG.Volume;}, newVal -> gpwsElytraClient.CONFIG.Volume = newVal)
+                            .binding(100, () -> {return gpwsElytraClient.CONFIG.Volume;}, newVal -> gpwsElytraClient.CONFIG.Volume = newVal)
                             .controller(opt -> IntegerSliderControllerBuilder.create(opt)
                                 .range(0, 100)
                                 .step(1)
                                 .valueFormatter(val -> Text.literal(val + "%"))    
+                            )
+                            .build())
+                    .option(Option.createBuilder(int.class)
+                            .name(Text.literal("Delay"))
+                            .description(OptionDescription.createBuilder()
+                                .text(Text.literal("How long do we have to wait before playing the same sounds"))
+                                .build())
+                            .binding(30, () -> {return gpwsElytraClient.CONFIG.SoundDelay;}, newVal -> gpwsElytraClient.CONFIG.SoundDelay = newVal)
+                            .controller(opt -> IntegerSliderControllerBuilder.create(opt)
+                                .range(0, 100)
+                                .step(1)
+                                .valueFormatter(val -> Text.literal(val + ""))    
+                            )
+                            .build()) 
+                    .option(Option.createBuilder(int.class)
+                            .name(Text.literal("Minimum Delay"))
+                            .description(OptionDescription.createBuilder()
+                                .text(Text.literal("How long do we have to wait to play another sound (same or different)"))
+                                .build())
+                            .binding(30, () -> {return gpwsElytraClient.CONFIG.MinSoundDelay;}, newVal -> gpwsElytraClient.CONFIG.MinSoundDelay = newVal)
+                            .controller(opt -> IntegerSliderControllerBuilder.create(opt)
+                                .range(0, 100)
+                                .step(1)
+                                .valueFormatter(val -> Text.literal(val + ""))    
                             )
                             .build())
                     .build())

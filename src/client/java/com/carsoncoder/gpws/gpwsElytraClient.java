@@ -12,12 +12,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.chunk.Chunk;
-import nl.enjarai.cicada.api.conversation.ConversationManager;
-import nl.enjarai.cicada.api.util.CicadaEntrypoint;
-import nl.enjarai.cicada.api.util.JsonSource;
 import nl.enjarai.cicada.api.util.ProperLogger;
 
-public class gpwsElytraClient implements ClientModInitializer, CicadaEntrypoint  {
+public class gpwsElytraClient implements ClientModInitializer  {
 	public static gpwsConfig CONFIG = gpwsConfig.load();
     public static final Logger LOGGER = ProperLogger.getLogger("gpws-elytra");
 	public static gpwsElytraClient instance;
@@ -30,15 +27,6 @@ public class gpwsElytraClient implements ClientModInitializer, CicadaEntrypoint 
 		instance = this;
 		SOUNDS_MANAGER.init();
 		HudRenderCallback.EVENT.register(new gpwsHud(this));
-    }
-
-	@Override
-    public void registerConversations(ConversationManager conversationManager) {
-        conversationManager.registerSource(
-                JsonSource.fromUrl("https://raw.githubusercontent.com/carson-coder/gpws-elytra/master/fabric/src/main/resources/cicada/gpws-elytra/conversations.json")
-                        .or(JsonSource.fromResource("cicada/gpws-elytra/conversations.json")),
-                LOGGER::info
-        );
     }
 
 	public void tick()
