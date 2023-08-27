@@ -20,7 +20,43 @@ public class gpwsElytraClient implements ClientModInitializer  {
 	public static gpwsElytraClient instance;
 	public static final gpwsSounds SOUNDS_MANAGER = new gpwsSounds();
 
-	private String gpwsState = "Loading";
+    public static final class State {
+        int Y;
+        boolean Pull;
+        boolean Bank;
+        String State;
+
+        public State(int y, boolean pull, boolean bank, String state) {
+            this.Y = y;
+            this.Pull = pull;
+            this.Bank = bank;
+            this.State = state;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = Y;
+            result = 31 * result + (Pull? 1 : 0);
+            result = 31 * result + (Bank? 1 : 0);
+            result = 31 * result + State.hashCode();
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass()!= o.getClass()) return false;
+
+            State state = (State) o;
+
+            if (Y!= state.Y) return false;
+            if (Pull!= state.Pull) return false;
+            if (Bank!= state.Bank) return false;
+            return State.equals(state.State);
+        }
+    }
+
+	private State gpwsState = null;
 
 	@Override
 	public void onInitializeClient() {
@@ -31,7 +67,7 @@ public class gpwsElytraClient implements ClientModInitializer  {
 
 	public void tick()
 	{
-		gpwsState = "";
+		gpwsState = null;
 	}
 
 	private boolean PullUp(float delta) {
@@ -73,7 +109,7 @@ public class gpwsElytraClient implements ClientModInitializer  {
 		}
 	}
 
-	private String StateLogic(float delta) {
+	private State StateLogic(float delta) {
 		int StallAngle = CONFIG.BankAngleAngle;
 
 		Entity cam = MinecraftClient.getInstance().getCameraEntity();
@@ -82,24 +118,25 @@ public class gpwsElytraClient implements ClientModInitializer  {
 		Heightmap heightmap = chunk.getHeightmap(Heightmap.Type.WORLD_SURFACE);
 
 		int YPos = (int)Math.round(MinecraftClient.getInstance().player.getBodyY(1)) - heightmap.get(Math.max(Math.min(pos.getX() - chunk.getPos().getStartX(), 15), 0), Math.max(Math.min(pos.getX() - chunk.getPos().getStartZ(), 15), 0));
-		double DownVel = MinecraftClient.getInstance().player.getVelocity().y;
+		YPos = Math.round(YPos / CONFIG.Round) * CONFIG.Round;
+        double DownVel = MinecraftClient.getInstance().player.getVelocity().y;
 		float Pitch = cam.getPitch();
 
 		// LOGGER.info(String.valueOf(heightmap.get(Math.max(Math.min(pos.getX() - chunk.getPos().getStartX(), 15), 0), Math.max(Math.min(pos.getX() - chunk.getPos().getStartZ(), 15), 0))));
 
 		if (Pitch < StallAngle) {
-			return "Bank Angle";
+			return new State(0, false, true, "Bank Angle");
 		} else if (PullUp(delta)) {
-			return "Pull Up";
+			return new State(0, true, false, "Pull Up");
 		} else if (YPos <= 2500) {
-			return String.valueOf(YPos);
+			return new State(YPos, false, false, String.valueOf(YPos));
 		}
 
-		return "";
+		return null;
 	}
 
-	public String GetState(float delta) {
-		if (gpwsState == "") {
+	public State GetState(float delta) {
+		if (gpwsState == null) {
 			gpwsState = StateLogic(delta);
 		}
 		return gpwsState;

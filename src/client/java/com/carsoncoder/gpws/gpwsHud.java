@@ -20,7 +20,7 @@ public class gpwsHud implements HudRenderCallback  {
 
     int repeatTime = gpwsElytraClient.CONFIG.MinSoundDelay;
 
-    String prevstate = "";   
+    gpwsElytraClient.State prevstate = null;   
     float lastPlayedSoundTime = 100;
 
     class Color {
@@ -38,8 +38,6 @@ public class gpwsHud implements HudRenderCallback  {
 
     private gpwsElytraClient client;
     private Color white = new Color(255, 255, 255);
-
-    private String lastState = "";
 
     public gpwsHud(gpwsElytraClient c) {
         client = c;
@@ -95,23 +93,24 @@ public class gpwsHud implements HudRenderCallback  {
             renderer = MinecraftClient.getInstance().textRenderer;
         }
 
-        String state = client.GetState(tickDelta);
+        gpwsElytraClient.State state = client.GetState(tickDelta);
+        LOGGER.info(state + " " + prevstate + "-");
 
-        if (state == "Bank Angle" && lastPlayedSoundTime > repeatTime) {
+        if (state.Bank && lastPlayedSoundTime > repeatTime) {
             gpwsElytraClient.SOUNDS_MANAGER.PlaySound(gpwsSounds.SOUNDS.BANK_ANGLE);
             lastPlayedSoundTime = 0;
-        } else if (state == "Pull Up" && lastPlayedSoundTime > ((state != prevstate)? repeatTime + 20: gpwsElytraClient.CONFIG.MinSoundDelay)) {
+        } else if (state.Pull && lastPlayedSoundTime > ((state.equals(prevstate))? repeatTime + 20: gpwsElytraClient.CONFIG.MinSoundDelay)) {
             gpwsElytraClient.SOUNDS_MANAGER.PlaySound(gpwsSounds.SOUNDS.PULL_UP);
             lastPlayedSoundTime = 0;
-        } else if (gpwsElytraClient.SOUNDS_MANAGER.YSounds.get(state) != null && state != prevstate) {
-            gpwsElytraClient.SOUNDS_MANAGER.PlaySound(gpwsElytraClient.SOUNDS_MANAGER.YSounds.get(state));
+        } else if (gpwsElytraClient.SOUNDS_MANAGER.YSounds.get(state.State) != null && !state.equals(prevstate)) {
+            gpwsElytraClient.SOUNDS_MANAGER.PlaySound(gpwsElytraClient.SOUNDS_MANAGER.YSounds.get(state.State));
             lastPlayedSoundTime = 0;
         }
         // LOGGER.info(String.valueOf(lastPlayedSoundTime));
 
         // Render Bold Underlined Hello In the center of the screen
         Text gpwsText = newText(
-            client.GetState(tickDelta),
+            client.GetState(tickDelta).State,
             false,
             false, 
             false, 

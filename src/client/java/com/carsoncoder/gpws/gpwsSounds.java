@@ -2,14 +2,14 @@ package com.carsoncoder.gpws;
 
 import java.util.HashMap;
 
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.EntityTrackingSoundInstance;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.Random;
 
 public class gpwsSounds {
 
@@ -58,7 +58,7 @@ public class gpwsSounds {
         MinecraftClient.getInstance().getSoundManager().play(new EntityTrackingSoundInstance(
             sound,
             SoundCategory.VOICE,
-            gpwsElytraClient.CONFIG.Volume/100,
+            gpwsElytraClient.CONFIG.Volume,
             1f,
             MinecraftClient.getInstance().player,
             Random.create().nextLong()));
